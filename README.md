@@ -11,8 +11,6 @@ parameters:
         title: Nome da Namespace
         type: string
         description: Nome único da namespace a ser criada. Ex.: "centroCusto-sistema ou vila-sistema"
-        ui:help: 'Hint: O nome da namespace deve conter no máximo 15 caracteres.'
-        ui:autofocus: true
         maxLength: 15
 
       cluster_name:
@@ -30,6 +28,8 @@ parameters:
           - arodvpdtfnpip111
           - arodvplatfcap111
           - arodvplatfud111
-    ui:options:
-      cluster_name:
-        allowArbitrary: true
+
+ui:
+  cluster_name:
+    'ui:options':
+      allowArbitrary: true
