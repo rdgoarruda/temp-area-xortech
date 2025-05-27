@@ -1,35 +1,19 @@
-parameters:
-  - title: Informações Gerais
-    required:
-      - nome_namespace
-      - cluster_name
-      - ambiente
-      - domain
-      - centro_custo
-    properties:
-      nome_namespace:
-        title: Nome da Namespace
-        type: string
-        description: Nome único da namespace a ser criada. Ex.: "centroCusto-sistema ou vila-sistema"
-        maxLength: 15
-
-      cluster_name:
-        title: Nome do Cluster
-        type: string
-        description: |
-          Nome do cluster ARO onde a namespace será provisionada.
-
-          Para mais detalhes, consulte a documentação oficial em: https://confluence.bradesco.com.br:8443
-        enum:
-          - arodvdagempp111
-          - arodvinguap111
-          - arodvleap02
-          - arodvleap03
-          - arodvpdtfnpip111
-          - arodvplatfcap111
-          - arodvplatfud111
-
-ui:
-  cluster_name:
-    'ui:options':
-      allowArbitrary: true
+cluster_name:
+  title: Nome do Cluster
+  type: string
+  oneOf:
+    - const: arodvdagempp111
+      title: arodvdagempp111
+    - const: arodvinguap111
+      title: arodvinguap111
+    - const: arodvleap02
+      title: arodvleap02
+    - const: arodvleap03
+      title: arodvleap03
+    - const: arodvpdtfnpip111
+      title: arodvpdtfnpip111
+    - const: arodvplatfcap111
+      title: arodvplatfcap111
+    - const: arodvplatfud111
+      title: arodvplatfud111
+  default: ""
