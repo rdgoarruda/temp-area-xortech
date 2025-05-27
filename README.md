@@ -2,16 +2,16 @@ parameters:
   - title: Informações Gerais
     required:
       - nome_namespace
+      - usar_cluster_personalizado
       - ambiente
       - domain
       - centro_custo
-      - usar_cluster_personalizado
     properties:
       nome_namespace:
         title: Nome da Namespace
         type: string
-        description: Nome único da namespace a ser criada. Ex.: "centroCusto-sistema ou vila-sistema"
         maxLength: 15
+        description: Nome único da namespace a ser criada.
 
       usar_cluster_personalizado:
         title: Deseja informar um nome de cluster personalizado?
@@ -19,7 +19,7 @@ parameters:
         default: false
 
       cluster_name:
-        title: Nome do Cluster (selecione da lista)
+        title: Nome do Cluster
         type: string
         enum:
           - arodvdagempp111
@@ -29,12 +29,12 @@ parameters:
           - arodvpdtfnpip111
           - arodvplatfcap111
           - arodvplatfud111
-        description: Selecione um cluster da lista
+        description: Selecione o cluster ARO onde a namespace será provisionada.
 
       custom_cluster_name:
-        title: Nome do Cluster (personalizado)
+        title: Nome do Cluster (customizado)
         type: string
-        description: Preencha apenas se estiver usando um nome fora da lista
+        description: Preencha este campo somente se quiser informar um cluster fora da lista.
 
     dependencies:
       usar_cluster_personalizado:
