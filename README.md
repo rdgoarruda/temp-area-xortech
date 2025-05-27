@@ -1,48 +1,35 @@
-import streamlit as st
-import pandas as pd
-from azure.identity import AzureCliCredential
-from azure.mgmt.resource import SubscriptionClient
-from azure.mgmt.redhatopenshift import AzureRedHatOpenShiftClient
+parameters:
+  - title: Informações Gerais
+    required:
+      - nome_namespace
+      - cluster_name
+      - ambiente
+      - domain
+      - centro_custo
+    properties:
+      nome_namespace:
+        title: Nome da Namespace
+        type: string
+        description: Nome único da namespace a ser criada. Ex.: "centroCusto-sistema ou vila-sistema"
+        ui:help: 'Hint: O nome da namespace deve conter no máximo 15 caracteres.'
+        ui:autofocus: true
+        maxLength: 15
 
-credential = AzureCliCredential()
-subscription_client = SubscriptionClient(credential)
+      cluster_name:
+        title: Nome do Cluster
+        type: string
+        description: |
+          Nome do cluster ARO onde a namespace será provisionada.
 
-st.title("Clusters ARO por Tenant")
-
-placeholder = st.empty()  # Espaço reservado para a tabela
-data = []
-
-# Lista subscriptions do tenant
-subscriptions = list(subscription_client.subscriptions.list())
-
-progress = st.progress(0)
-total = len(subscriptions)
-
-for idx, sub in enumerate(subscriptions):
-    sub_id = sub.subscription_id
-    sub_name = sub.display_name
-    tenant_id = sub.tenant_id
-
-    aro_client = AzureRedHatOpenShiftClient(credential, sub_id)
-
-    try:
-        clusters = aro_client.open_shift_clusters.list()
-        for cluster in clusters:
-            data.append({
-                "Tenant ID": tenant_id,
-                "Subscription Name": sub_name,
-                "Subscription ID": sub_id,
-                "Cluster Name": cluster.name,
-                "Resource Group": cluster.id.split("/")[4],
-                "Location": cluster.location,
-                "Console URL": cluster.console_profile.url if cluster.console_profile else "N/A"
-            })
-            # Atualiza a tabela na tela dinamicamente
-            df = pd.DataFrame(data)
-            placeholder.dataframe(df)
-    except Exception as e:
-        st.warning(f"[{sub_name}] erro ao buscar clusters: {e}")
-
-    progress.progress((idx + 1) / total)
-
-st.success("Consulta finalizada.")
+          Para mais detalhes, consulte a documentação oficial em: https://confluence.bradesco.com.br:8443
+        enum:
+          - arodvdagempp111
+          - arodvinguap111
+          - arodvleap02
+          - arodvleap03
+          - arodvpdtfnpip111
+          - arodvplatfcap111
+          - arodvplatfud111
+    ui:options:
+      cluster_name:
+        allowArbitrary: true
