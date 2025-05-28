@@ -1,49 +1,6 @@
-parameters:
-  - title: Informações Gerais
-    required:
-      - nome_namespace
-      - usar_cluster_personalizado
-      - ambiente
-      - domain
-      - centro_custo
-    properties:
-      nome_namespace:
-        title: Nome da Namespace
-        type: string
-        maxLength: 15
-        description: Nome único da namespace a ser criada.
-
-      usar_cluster_personalizado:
-        title: Deseja informar um nome de cluster personalizado?
-        type: boolean
-        default: false
-
-      cluster_name:
-        title: Nome do Cluster
-        type: string
-        enum:
-          - arodvdagempp111
-          - arodvinguap111
-          - arodvleap02
-          - arodvleap03
-          - arodvpdtfnpip111
-          - arodvplatfcap111
-          - arodvplatfud111
-        description: Selecione o cluster ARO onde a namespace será provisionada.
-
-      custom_cluster_name:
-        title: Nome do Cluster (customizado)
-        type: string
-        description: Preencha este campo somente se quiser informar um cluster fora da lista.
-
-    dependencies:
-      usar_cluster_personalizado:
-        oneOf:
-          - properties:
-              usar_cluster_personalizado:
-                const: false
-              cluster_name: {}
-          - properties:
-              usar_cluster_personalizado:
-                const: true
-              custom_cluster_name: {}
+extra_vars:
+  cluster_name: ${{ parameters.cluster_name_custom | lower if parameters.cluster_name == "Cluster(ARO), não encontrado?" else parameters.cluster_name | lower }}
+  aro_subscription_id: ${{ parameters.aro_subscription_id_custom | lower if parameters.aro_subscription_id == "SubscriptionID, não encontrado?" else parameters.aro_subscription_id | lower }}
+  azure_keyvault_name: ${{ parameters.azure_keyvault_name_custom | lower if parameters.azure_keyvault_name == "Keyvault, não encontrado?" else parameters.azure_keyvault_name | lower }}
+  kv_subscription_id: ${{ parameters.kv_subscription_id_custom | lower if parameters.kv_subscription_id == "Keyvault SubscriptionID, não encontrado?" else parameters.kv_subscription_id | lower }}
+  rg_aro_cluster: ${{ parameters.rg_aro_cluster_custom | lower if parameters.rg_aro_cluster == "Cluster(ARO) resource group, não encontrado?" else parameters.rg_aro_cluster | lower }}
