@@ -1,13 +1,3 @@
-# INICIO DEPENDENCIES CONDITION
+Durante os testes, percebemos que o payload quebrava quando o campo customizado não era preenchido. Quando preenchíamos com um valor do dropdown, tudo funcionava. Porém, ao tentar usar um valor manual, o erro retornado era:
 
-cluster_name: ${{ parameters.cluster_name_custom | lower if parameters.manual_cluster_name == true else parameters.cluster_name | lower }}
-
-aro_subscription_id: ${{ parameters.manual_aro_subscription_id | lower if parameters.manual_aro_subscription_id_custom == true else parameters.aro_subscription_id | lower }}
-
-azure_keyvault_name: ${{ parameters.manual_azure_keyvault_name | lower if parameters.manual_azure_keyvault_name_custom == true else parameters.azure_keyvault_name | lower }}
-
-kv_subscription_id: ${{ parameters.manual_kv_subscription_id | lower if parameters.manual_kv_subscription_id_custom == true else parameters.kv_subscription_id | lower }}
-
-rg_aro_cluster: ${{ parameters.manual_rg_aro_cluster | lower if parameters.manual_rg_aro_cluster_custom == true else parameters.rg_aro_cluster | lower }}
-
-# FIM DEPENDENCIES CONDITION
+O que acontece é que estávamos usando o mesmo campo (cluster_name, aro_subscription_id, etc.) tanto no bloco principal do properties quanto dentro de dependencies com oneOf. E o oneOf exige que uma das condições seja 100% atendida. Quando não há correspondência exata com os valores definidos no enum, o schema quebra — pois ele espera que o valor informado esteja entre os enum daquele subschema.
