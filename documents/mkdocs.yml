@@ -1,0 +1,28 @@
+site_name: Backstage acme
+nav:
+  - Início: 
+      - "Introdução": index.md
+      - "Roadmap": roadmap.md
+  - Catálogo:
+      - "Catálogo": catalog/catalogo-backstage.md
+      - "Componentes": kinds/components.md
+      - "Apis": kinds/api.md
+      - "Resources": kinds/resources.md
+  - Templates:
+      - "Templates": templates_acme/acme-templates.md
+      - "Aplicações acme": templates_acme/acme-applications.md
+      - "Deploy Kubernetes": templates_acme/acme-deploy-kubernetes.md
+      - "Recursos GCP": templates_acme/acme-gcp-resources.md
+      - "Configurar Cluster GKE": templates_acme/acme-stack.md
+  - Organização:
+    #   - "Organizacao acme Backstage": org/organization.md
+      - "Estrutura de Diretório Organizacional": org/repo-org.md
+      - "Domain": org/domain.md
+      - "System": org/system.md
+      - "Group": org/group.md
+      - "User": org/user.md
+      - "Tags": org/tags.md
+      - "Annotations": org/annotations.md
+#   - FAQ: 
+#       - "Perguntas Frequentes": faq.md
+theme: readthedocs

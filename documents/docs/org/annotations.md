@@ -1,0 +1,69 @@
+# Annotations
+
+As anotações (annotations) no Backstage são metadados chave-valor associados a entidades no catálogo do Backstage. 
+
+Elas fornecem uma maneira de adicionar informações adicionais, configurações específicas e integrar funcionalidades de outras ferramentas e plataformas, como Kubernetes, Argo CD, Datadog, Google Cloud Build, etc...
+
+### Kubernetes:
+
+**backstage.io/kubernetes-id** e **backstage.io/kubernetes-namespace**: Essas anotações são usadas pelo plugin do Kubernetes do Backstage para conectar entidades do catálogo a seus equivalentes no Kubernetes, facilitando a visualização de informações de deployment, pods, e outros recursos do Kubernetes diretamente no Backstage.
+
+### Integração com Argo CD:
+
+**argocd/proxy-url**: Pode especificar o URL base para um proxy que redireciona para a instância do Argo CD, permitindo links diretos para aplicações Argo CD relevantes a partir do Backstage.
+
+**argocd/app-name**: Identifica o nome da aplicação no Argo CD, possibilitando uma integração mais rica com mais detalhes.
+
+### Monitoramento com Datadog:
+
+**datadoghq.com/site:** Indica o site do Datadog a ser usado.
+
+**datadoghq.com/dashboard-url:** Fornece um link direto para um dashboard específico do Datadog.
+
+### Integração com Google Cloud Build:
+
+**google.com/cloudbuild-project-slug e google.com/cloudbuild-repo-name:** Podem ser utilizadas para integrar informações de build e status do Google 
+Cloud Build com o Backstage, oferecendo visibilidade do processo de CI/CD.
+
+### Documentação e Código Fonte:
+
+**backstage.io/source-location:** Especifica a localização do código fonte da entidade.
+
+**backstage.io/techdocs-ref:** Define a localização da documentação técnica associada à entidade.
+
+Exemplo de annotations para Component:
+
+```
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ...
+  description: |
+    ...
+  links:
+    - ...
+  tags:
+    - ...
+  annotations:
+    backstage.io/kubernetes-id: ...
+    backstage.io/kubernetes-namespace: ...
+    argocd/proxy-url: ...
+    datadoghq.com/site: ...
+    datadoghq.com/dashboard-url: ...
+    argocd/app-name: ...
+    google.com/cloudbuild-project-slug: ...
+    google.com/cloudbuild-repo-name: ...
+    backstage.io/source-location: url:...
+    backstage.io/techdocs-ref: url:...
+spec:
+  type: ...
+  lifecycle: ...
+  owner: ...
+  system: ...
+  providesApis:
+    - ...
+  dependsOn: 
+    - ...
+```
+
+<img align="right" width="150" height="150" src="https://backstage.cloud.acme.com.br/static/acme_branco.895b1e3e..png">

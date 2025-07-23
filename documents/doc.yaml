@@ -1,0 +1,18 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: acme-doc
+  description: Documentacao Backstage acme
+  links:
+    - url: https://bitbucket.org/acme_ecommerce/br-organization-backstage/src/qa/acme/documents/
+      title: BitBucket
+      icon: dashboard
+  tags:
+    - document
+    - plataforma
+  annotations:
+    backstage.io/techdocs-ref: url:https://bitbucket.org/acme_ecommerce/br-organization-backstage/src/qa/acme/documents/
+spec:
+  type: document
+  owner: platform
+  system: base-system
